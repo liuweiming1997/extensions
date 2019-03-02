@@ -1,0 +1,54 @@
+version: '3'
+services:
+  web_crawler:
+    build:
+      context: ../..
+      dockerfile: ./local_dev/docker/web_crawler.dockerfile
+    volumes:
+      - $PWD/../volumes/log/crawler:/log/crawler
+      - $PWD/../volumes/tmp:/tmp
+      - /etc/localtime:/etc/localtime
+    environment:
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - REDIS_HOST=${REDIS_HOST}
+    container_name: "web_crawler"
+    networks:
+      chrome_server_net:
+        ipv4_address: 192.18.0.2
+
+  chrome_db:
+    image: mysql:5.7
+    volumes:
+      - $PWD/../volumes/mysql_data:/var/lib/mysql
+    ports:
+      - ${DB_PROT_MAPPING}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - LANG=C.UTF-8
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-time-zone=+8:00']
+    container_name: "chrome_db"
+    networks:
+      chrome_server_net:
+        ipv4_address: 192.18.0.3
+
+  chrome_redis:
+    image: redis:alpine
+    volumes:
+      - $PWD/../volumes/redis_data:/data
+    ports:
+      - ${REDIS_PROT_MAPPING}
+    container_name: "chrome_redis"
+    networks:
+      chrome_server_net:
+        ipv4_address: 192.18.0.5
+
+networks:
+  chrome_server_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.18.0.0/16
