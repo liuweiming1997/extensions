@@ -28,6 +28,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - /etc/localtime:/etc/localtime
       - LANG=C.UTF-8
     command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-time-zone=+8:00']
     container_name: "chrome_db"

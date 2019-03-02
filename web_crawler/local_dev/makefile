@@ -22,7 +22,7 @@ init:
 	$(call do_command, docker-compose up --build -d web_crawler)
 
 update:
-	$(call do_command, docker rm -f $(WEB_CRAWLER))
+	$(call do_command, docker rm -f $(WEB_CRAWLER) || true)
 	@echo "Running web_crawler"
 	$(call do_command, docker-compose up --build -d web_crawler)
 
