@@ -45,7 +45,7 @@ services:
     container_name: "chrome_redis"
     networks:
       chrome_server_net:
-        ipv4_address: 192.18.0.5
+        ipv4_address: 192.18.0.4
 
 networks:
   chrome_server_net:
