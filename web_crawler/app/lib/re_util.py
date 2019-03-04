@@ -37,7 +37,7 @@ class ReUtil:
 
         if cls.exits.get(pattern):
             return cls.exits[pattern]
-        regex_obj = re.compile(pattern)
+        regex_obj = re.compile(pattern, re.DOTALL)
         cls.exits[pattern] = regex_obj
         return regex_obj
 
