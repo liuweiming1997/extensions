@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from singleton.metaclass_base import Singleton
 
-class config_base:
+class config_base(metaclass=Singleton):
     def __init__(self):
         pass
 
