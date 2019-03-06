@@ -3,7 +3,7 @@ from collections import Iterable
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-from common.config.config_base import config_base
+from common.config.config_base import Config_Base
 
 class Database:
 
@@ -19,10 +19,10 @@ class Database:
     def __init__(self):
         self._engine = create_engine(
             "mysql+mysqldb://{user}:{password}@{host}:{port}/{database}?charset=utf8".format(
-                user=config_base.MYSQL_ROOT_USER,
-                password=config_base.MYSQL_ROOT_PASSWORD,
-                host=config_base.DB_HOST,
-                database=config_base.MYSQL_DATABASE
+                user=Config_Base.MYSQL_ROOT_USER,
+                password=Config_Base.MYSQL_ROOT_PASSWORD,
+                host=Config_Base.DB_HOST,
+                database=Config_Base.MYSQL_DATABASE
             ),
             echo=False, 
             pool_size=2, 

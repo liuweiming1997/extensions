@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from common.singleton.metaclass_base import Singleton
 
-class config_base(metaclass=Singleton):
+class Config_Base(metaclass=Singleton):
     def __init__(self):
         pass
 
