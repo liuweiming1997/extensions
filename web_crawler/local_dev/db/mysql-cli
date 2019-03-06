@@ -1,0 +1,6 @@
+MYSQL_ROOT_PASSWORD=root
+MYSQL_USER=root
+MYSQL_DATABASE=chrome_db
+CONTAINER_NAME=chrome_db
+
+docker exec -it ${CONTAINER_NAME} mysql --default-character-set utf8 -u${MYSQL_USER} -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE}
