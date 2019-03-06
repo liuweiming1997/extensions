@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
+
 from common.singleton.metaclass_base import Singleton
 
 class Config_Base(metaclass=Singleton):
