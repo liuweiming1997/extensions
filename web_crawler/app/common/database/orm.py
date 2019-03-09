@@ -18,7 +18,7 @@ class Database:
 
     def __init__(self):
         self._engine = create_engine(
-            "mysql+mysqldb://{user}:{password}@{host}:{port}/{database}?charset=utf8".format(
+            "mysql+mysqldb://{user}:{password}@{host}/{database}?charset=utf8".format(
                 user=Config_Base().MYSQL_ROOT_USER,
                 password=Config_Base().MYSQL_ROOT_PASSWORD,
                 host=Config_Base().DB_HOST,
