@@ -30,7 +30,7 @@ CREATE TABLE `meituan_meishi` (
   `avgScore` int(11) NOT NULL DEFAULT '0',
   `allCommentNum` int(11) NOT NULL DEFAULT '0',
   `address` varchar(200) NOT NULL,
-  `avgPrice` int(11) NOT NULL DEFAULT '0',
+  `avgPrice` float(10, 2) NOT NULL DEFAULT '0',
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `json` json DEFAULT NULL,
   PRIMARY KEY (`id`),

@@ -17,7 +17,7 @@ class MeishiTest(BaseTest):
         "avgScore": 5,                                                                                                                                                    
         "allCommentNum": 86,
         "address": "南沙万达广场环市大道东25号万达金街二楼208〔7号门对面〕",
-        "avgPrice": 16,
+        "avgPrice": 16.43,
     }
 
     def setUp(self):

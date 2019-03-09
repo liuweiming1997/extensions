@@ -18,7 +18,7 @@ class Meishi(MODEL_BASE):
     avgScore = Column(Integer)
     allCommentNum = Column(Integer)
     address = Column(String(200))
-    avgPrice = Column(Integer)
+    avgPrice = Column(Float)
     create_time = Column(
         TIMESTAMP,
         nullable=False,
