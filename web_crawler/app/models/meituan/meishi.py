@@ -9,7 +9,7 @@ from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text
 from sqlalchemy.sql import func
 
 
-class Meituan_Meishi(MODEL_BASE):
+class Meishi(MODEL_BASE):
     __tablename__ = 'meituan_meishi'
     id = Column(Integer, primary_key=True)
     poiId = Column(Integer)
@@ -27,12 +27,12 @@ class Meituan_Meishi(MODEL_BASE):
     )
 
     @classmethod
-    def load_or_create(cls, pidId, frontImg, title, avgScore, allCommentNum, address, avgPrice):
-        meituan_meishi_obj = Meituan_Meishi.by_id()
-        if meituan_meishi_obj:
-            return meituan_meishi_obj
-        meituan_meishi_obj = cls(
-            pidId=pidId,
+    def load_or_create(cls, poiId, frontImg, title, avgScore, allCommentNum, address, avgPrice):
+        meishi_obj = cls.by_id(poiId)
+        if meishi_obj:
+            return meishi_obj
+        meishi_obj = cls(
+            poiId=poiId,
             frontImg=frontImg,
             title=title,
             avgScore=avgScore,
@@ -41,9 +41,9 @@ class Meituan_Meishi(MODEL_BASE):
             avgPrice=avgPrice
         )
         try:
-            Database.add(meituan_meishi_obj)
+            Database.add(meishi_obj)
             Database.commit()
-            return meituan_meishi_obj
+            return meishi_obj
         #TODO(weiming liu) cache sqlalchemy for not cache base exception
         except Exception as e:
             log.error(str(e))
@@ -51,8 +51,12 @@ class Meituan_Meishi(MODEL_BASE):
             return None
 
     @classmethod
-    def by_id(cls, pidId):
-        return Database.get_one_by(Meituan_Meishi, Meituan_Meishi.pidId == pidId)
+    def by_id(cls, poiId):
+        return Database.get_one_by(cls, cls.poiId == poiId)
+
+    @classmethod
+    def del_by_id(cls, poiId):
+        return Database.delete_one_by(cls, cls.poiId == poiId)
 
     def to_json(self):
         return {
