@@ -19,10 +19,10 @@ class Database:
     def __init__(self):
         self._engine = create_engine(
             "mysql+mysqldb://{user}:{password}@{host}:{port}/{database}?charset=utf8".format(
-                user=Config_Base.MYSQL_ROOT_USER,
-                password=Config_Base.MYSQL_ROOT_PASSWORD,
-                host=Config_Base.DB_HOST,
-                database=Config_Base.MYSQL_DATABASE
+                user=Config_Base().MYSQL_ROOT_USER,
+                password=Config_Base().MYSQL_ROOT_PASSWORD,
+                host=Config_Base().DB_HOST,
+                database=Config_Base().MYSQL_DATABASE
             ),
             echo=False, 
             pool_size=2, 

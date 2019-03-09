@@ -9,7 +9,8 @@ class Config_Base(metaclass=Singleton):
         pass
 
     def __getattr__(self, key):
-        if os.getenv(key, default=None):
-            return os.getenv(key)
+        value = os.getenv(key, default=None)
+        if value:
+            return value
         else:
             raise Exception('config error, not found {}'.format(key))
