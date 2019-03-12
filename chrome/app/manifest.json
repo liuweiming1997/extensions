@@ -26,7 +26,7 @@
     {
         "default_icon": "static/front.png",
         // 图标悬停时的标题，可选
-        "default_title": "这是一个示例Chrome插件",
+        "default_title": "A life use crawler",
         "default_popup": "popup.html"
     },
     // 当某些特定页面打开才显示的图标
@@ -70,7 +70,7 @@
     // 普通页面能够直接访问的插件资源列表，如果不设置是无法直接访问的
     "web_accessible_resources": ["js/inject.js"],
     // 插件主页，这个很重要，不要浪费了这个免费广告位
-    "homepage_url": "https://www.baidu.com",
+    "homepage_url": "http://www.cnblogs.com/liuweimingcprogram/",
     // 覆盖浏览器默认页面
     // "chrome_url_overrides":
     // {
@@ -81,12 +81,12 @@
     // Chrome40以后的插件配置页写法，如果2个都写，新版Chrome只认后面这一个
     "options_ui":
     {
-        "page": "index.html",
+        "page": "options.html",
         // 添加一些默认的样式，推荐使用
         "chrome_style": true
     },
     // 向地址栏注册一个关键字以提供搜索建议，只能设置一个关键字
-    "omnibox": { "keyword" : "go" },
+    "omnibox": { "keyword" : "vimi" },
     // 默认语言
     "default_locale": "zh_CN",
     // devtools页面入口，注意只能指向一个HTML文件，不能是JS文件
