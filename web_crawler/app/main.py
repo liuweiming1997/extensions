@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import time
+from request_client.meituan.meishi import web_crawler_meituan_meishi
 
 if __name__ == '__main__':
-    while True:
-        print("yes I doing")
-        time.sleep(5)
+    web_crawler_meituan_meishi.do()

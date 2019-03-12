@@ -35,4 +35,5 @@ class BaseApi:
             url=url,
             cookies=parse_cookies(cls.get_cookies()),
             headers=parse_headers(cls.get_headers()),
+            timeout=12, #in seconds
         )
