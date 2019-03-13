@@ -4,10 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
-  entry: path.join(__dirname, "./main.js"),
+  entry: path.join(__dirname, "./js/background.js"),
   output: {
     path: path.join(__dirname, "build"),
-    filename: "main.js"
+    filename: "background.js"
   },
   devServer: {
     contentBase: path.join(__dirname, 'build'),
@@ -37,7 +37,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "main.html")
+      template: path.join(__dirname, "devtools.html")
     })
   ]
 }
