@@ -5,7 +5,7 @@ import os
 from common.config.config_base import Config_Base
 
 class LoggerConfig:
-    LOG_BASE_DIR = '.'
+    LOG_BASE_DIR = '/log/crawler/'
     LOG_FILES = {
         'error': os.path.join(LOG_BASE_DIR, 'error.log'),
         'info': os.path.join(LOG_BASE_DIR, 'info.log'),
