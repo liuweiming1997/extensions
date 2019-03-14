@@ -1,2 +1,1 @@
-*/1 * * * * echo "Hello world" >> /log/crawler/crontab.log
-
+*/1 * * * * /python3/web_crawler/app/start_crawler.sh 1>>/log/crawler/crontab.log 2>&1
