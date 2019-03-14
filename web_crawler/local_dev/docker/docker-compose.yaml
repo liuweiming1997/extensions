@@ -5,7 +5,7 @@ services:
       context: ../..
       dockerfile: ./local_dev/docker/web_crawler.dockerfile
     volumes:
-      - $PWD/../volumes/log/crawler:/log/crawler
+      - $PWD/../volumes/log:/log
       - $PWD/../volumes/tmp:/tmp
       - /etc/localtime:/etc/localtime
     environment:

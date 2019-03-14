@@ -8,7 +8,9 @@ define do_command
 endef
 
 init:
-	mkdir -p ./volumes/log ./volumes/tmp
+	@if [[ ! -d ./volumes/log/crawler ]]; then mkdir -p ./volumes/log/crawler; fi
+	@if [[ ! -d ./volumes/tmp ]]; then mkdir -p ./volumes/tmp; fi
+	@if [[ ! -f ./volumes/log/crawler/crontab.log ]]; then touch ./volumes/log/crawler/crontab.log; fi
 	
 	# create redis && mysql
 	@echo "Running redis"

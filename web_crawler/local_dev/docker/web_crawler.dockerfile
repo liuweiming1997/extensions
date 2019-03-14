@@ -7,7 +7,7 @@ COPY ./local_dev/docker/sources.list /etc/apt/sources.list
 COPY ./local_dev/docker/pip.conf /etc/pip.conf
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 libmysqlclient-dev python3-pip python3-mysqldb
+    python3 libmysqlclient-dev python3-pip python3-mysqldb cron vim
 
 RUN pip3 install --no-cache-dir --upgrade pip
 RUN ["/bin/bash", "-c", "pip3 install --upgrade setuptools"]
@@ -19,6 +19,6 @@ COPY ./local_dev/docker ${WORKSPACE}/local_dev/docker
 WORKDIR ${WORKSPACE}/local_dev/docker
 RUN pip3 install -r ./requirements.txt
 
-WORKDIR ${WORKSPACE}/app
-
-ENTRYPOINT ["python3", "-u", "main.py"]
+ADD ./app/crontab-crawler /var/spool/cron/crontabs/root
+RUN chmod 600 /var/spool/cron/crontabs/root
+ENTRYPOINT cron && ":" >> /log/crawler/crontab.log && tail -f /log/crawler/crontab.log
