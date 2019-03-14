@@ -15,6 +15,8 @@ import grey from '@material-ui/core/colors/grey';
 import Tooltip from '@material-ui/core/Tooltip';
 import LockIcon from '@material-ui/icons/LockOutlined';
 
+import messageBox from '../common/messagebox/messagebox';
+
 const styles = theme => ({
   main: {
     backgroundColor: green[700],
@@ -93,6 +95,7 @@ class Login extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={()=>{messageBox('yes', 'no');}}
               >
                 Sign in
               </Button>
