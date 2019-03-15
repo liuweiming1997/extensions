@@ -7,7 +7,8 @@ define do_command
 endef
 
 init:
-	mkdir -p ./volumes/log ./volumes/tmp
+	@if [[ ! -d ./volumes/log ]]; then mkdir -p ./volumes/log; fi
+	@if [[ ! -d ./volumes/tmp ]]; then mkdir -p ./volumes/tmp; fi
 	
 	# create chrome_server
 	@echo "Running chrome_server"
