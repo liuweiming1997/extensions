@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from common.lib.errors.expection import DatabaseError
+from common.lib.errors.expection import DatabaseError, ArgsError
 from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
@@ -24,7 +24,7 @@ class User(MODEL_BASE):
 
     @classmethod
     def load_or_create(cls, username, password):
-        user_obj = cls.by_name(username)
+        user_obj = cls.by_name(username, password)
         if user_obj:
             return user_obj
         user_obj = cls(
@@ -41,8 +41,12 @@ class User(MODEL_BASE):
             raise DatabaseError('can not create user {username}'.format(usernmae=usernmae))
 
     @classmethod
-    def by_name(cls, username):
-        return Database.get_one_by(cls, cls.username == username)
+    def by_name(cls, username, password):
+        user_obj = Database.get_one_by(cls, cls.username == username)
+        if user_obj.password == password:
+            return user_obj
+        else:
+            raise ArgsError('unmatch password')
 
     @classmethod
     def by_id(cls, poiId):

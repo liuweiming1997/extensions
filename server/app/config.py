@@ -44,5 +44,9 @@ class Web_Crawler_Config(Config_Base):
         super().__init__()
 
     LOGGER = LoggerConfig()
+    SECRET_KEY = 'no_secret'
+    JSON_AS_ASCII = False
+    JSON_SORT_KEYS = True
+    SESSION_COOKIE_HTTPONLY = True
 
 config = Web_Crawler_Config()
