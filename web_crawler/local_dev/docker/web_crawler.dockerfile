@@ -22,6 +22,6 @@ RUN pip3 install -r ./requirements.txt
 ADD ./app/crontab-crawler /var/spool/cron/crontabs/root
 RUN chmod 600 /var/spool/cron/crontabs/root
 
-WORKDIR ${WORKSPACE}
+WORKDIR ${WORKSPACE}/app
 
-ENTRYPOINT cron && ":" >> /log/crawler/crontab.log && tail -f /log/crawler/crontab.log
+ENTRYPOINT alembic upgrade head && cron && ":" >> /log/crawler/crontab.log && tail -f /log/crawler/crontab.log
