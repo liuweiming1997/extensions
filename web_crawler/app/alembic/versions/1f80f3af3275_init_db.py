@@ -19,9 +19,9 @@ depends_on = None
 def upgrade():
     op.create_table(
         'user',
-        sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column('username', sa.String(200), autoincrement=True, nullable=False),
-        sa.Column('password', sa.String(200), autoincrement=True, nullable=False),
+        sa.Column('id', sa.Integer(), autoincrement=True, nullable=False, primary_key=True),
+        sa.Column('username', sa.String(200), autoincrement=False, nullable=False),
+        sa.Column('password', sa.String(200), autoincrement=False, nullable=False),
         sa.Column('create_time', mysql.TIMESTAMP(), autoincrement=False, nullable=True, server_default=sa.text('CURRENT_TIMESTAMP'))
     )
 
