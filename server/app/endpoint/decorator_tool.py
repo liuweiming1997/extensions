@@ -29,6 +29,8 @@ def parse_args(arg_name: str, arg_type: type):
         @functools.wraps(func)
         def wrapper_func(*args, **kwargs):
             value = request.form.getlist(arg_name) if issubclass(arg_type, list) else request.form.get(arg_name)
+            value = request.args.get(arg_name) if not value else value
+            value = request.json.get(arg_name) if not value and request.json else value
 
             if not value:
                 raise ArgsError('Require args {}'.format(arg_name))
