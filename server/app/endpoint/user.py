@@ -13,3 +13,8 @@ def load_or_create(username, password):
     user_obj = User.load_or_create(username, password)
     session['user_id'] = user_obj.id
     return jsonify(user_obj.to_json())
+
+@user_api.route('/check_session/', methods=['GET'])
+@parse_user()
+def check_session():
+    return jsonify(g.current_user.to_json())

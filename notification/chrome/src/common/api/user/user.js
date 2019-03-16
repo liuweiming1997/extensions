@@ -1,4 +1,5 @@
 import RequestBase from '../base';
+import account from '../../account';
 
 class User extends RequestBase {
   constructor() {
@@ -9,7 +10,11 @@ class User extends RequestBase {
       username: username,
       password: password,
     });
-    alert("????");
+    return account.updateUserInfo(response);
+  }
+  checkSession = async () => {
+    const response = await this.get('/user/check_session/');
+    return response;
   }
 };
 

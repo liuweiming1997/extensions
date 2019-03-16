@@ -49,12 +49,12 @@ class User(MODEL_BASE):
             raise ArgsError('unmatch password')
 
     @classmethod
-    def by_id(cls, poiId):
-        return Database.get_one_by(cls, cls.poiId == poiId)
+    def by_id(cls, user_id):
+        return Database.get_one_by(cls, cls.id == user_id)
 
     @classmethod
-    def del_by_id(cls, poiId):
-        return Database.delete_one_by(cls, cls.poiId == poiId)
+    def del_by_id(cls, user_id):
+        return Database.delete_one_by(cls, cls.id == user_id)
 
     def to_json(self):
         return {
