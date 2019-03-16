@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, Switch} from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
 
 import Login from './components/login.js';
 import log from './common/lib/log';
 import account from './common/account';
+import history from './common/history';
 
 class AppRouter extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class AppRouter extends React.Component {
   }
   render() {
     return (
-      <Router history={createHistory()}>
+      <Router history={history}>
         <Switch>
           <Route exact path="/" component={Login}/>
           <Route path="*" component={Login}/>
