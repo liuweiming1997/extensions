@@ -1,4 +1,7 @@
+import messageBox from '../messagebox/messagebox';
 import log from '../lib/log';
+
+const API_HOST = 'http://127.0.0.1:8888';
 
 const OPT = Object.freeze({
   method: 'GET',
@@ -6,7 +9,7 @@ const OPT = Object.freeze({
   redirect: 'follow',
   credentials: 'include',
   headers: new Headers({
-    'Content-Type': 'text/plain',
+    'content-type': 'application/json',
   })
 });
 
@@ -37,18 +40,18 @@ export default class RequestBase {
 
   doRequest = async (url, options) => {
     try {
-      const response = await fetch(url, options);
+      const fetchUrl = `${API_HOST}${url}`;
+      const response = await fetch(fetchUrl, options);
       if (response.status !== 200) {
-        throw response;
+        throw await processResponse(response);
       } else {
-        return await processResponse(response)
+        return await processResponse(response);
       }
     } catch(fetchError) {
-      console.log(fetchError);
-      const error = new Error(fetchError.statusText);
+      const error = new Error(fetchError.message);
       error.data = fetchError;
-      // TODO:(weimingliu) add hint messgae for error
-      // throw error;
+      messageBox(`request  '${url}'  error`, JSON.stringify(error, null, 2));
+      throw 'error';
     }
   }
 
@@ -57,7 +60,12 @@ export default class RequestBase {
     fetchOptions.method = 'GET';
     return await this.doRequest(url, fetchOptions);
   }
-  post = () => {}
+  post = async (url, options = {}, body = {}) => {
+    const fetchOptions = processOptions(options);
+    fetchOptions.method = 'POST';
+    fetchOptions.body = JSON.stringify(body);
+    return await this.doRequest(url, fetchOptions);
+  }
   put = () => {}
   del = () => {}
   options = () => {}
