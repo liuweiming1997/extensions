@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from common.log.logger import log
+from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
 
@@ -58,6 +58,11 @@ class Meishi(MODEL_BASE):
     def del_by_id(cls, poiId):
         return Database.delete_one_by(cls, cls.poiId == poiId)
 
+    @classmethod
+    def get_all_meishi(cls):
+        # latest update -24:00
+        return Database.get_many_by(Meishi)
+
     def to_json(self):
         return {
             'poiId': self.poiId,
@@ -67,5 +72,5 @@ class Meishi(MODEL_BASE):
             'allCommentNum': self.allCommentNum,
             'address': self.address,
             'avgPrice': self.avgPrice,
-            'create_time': self.create_time,
+            'createTime': self.create_time,
         }
