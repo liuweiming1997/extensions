@@ -24,9 +24,12 @@ class User(MODEL_BASE):
 
     @classmethod
     def load_or_create(cls, username, password):
-        user_obj = cls.by_name(username, password)
+        user_obj = cls.by_name(username)
         if user_obj:
-            return user_obj
+            if user_obj.password == password:
+                return user_obj
+            else:
+                raise ArgsError('unmatch password')
         user_obj = cls(
             username=username,
             password=password,
@@ -41,12 +44,8 @@ class User(MODEL_BASE):
             raise DatabaseError('can not create user {username}'.format(usernmae=usernmae))
 
     @classmethod
-    def by_name(cls, username, password):
-        user_obj = Database.get_one_by(cls, cls.username == username)
-        if user_obj.password == password:
-            return user_obj
-        else:
-            raise ArgsError('unmatch password')
+    def by_name(cls, username):
+        return Database.get_one_by(cls, cls.username == username)
 
     @classmethod
     def by_id(cls, user_id):

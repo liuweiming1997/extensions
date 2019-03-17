@@ -13,7 +13,8 @@ import green from '@material-ui/core/colors/green';
 import Tooltip from '@material-ui/core/Tooltip';
 import LockIcon from '@material-ui/icons/LockOutlined';
 
-import messageBox from '../common/messagebox/messagebox';
+import mrouter from '../common/mrouter';
+import user from '../common/api/user/user';
 
 const styles = theme => ({
   main: {
@@ -59,6 +60,18 @@ class Login extends React.Component {
     super(props);
   }
 
+  onUserLogin = async () => {
+    const args = {
+      username: document.getElementById('username').value,
+      password: document.getElementById('password').value
+    };
+    if (!(args.username && args.password)) {
+      return;
+    }
+    const response = await user.loadOrCreate(args.username, args.password);
+    mrouter.goToIndexPage();
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -93,7 +106,7 @@ class Login extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={()=>{messageBox('yes', 'no');}}
+                onClick={()=>{this.onUserLogin();}}
               >
                 Sign in
               </Button>

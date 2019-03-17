@@ -6,6 +6,7 @@ import Login from './components/login.js';
 import log from './common/lib/log';
 import account from './common/account';
 import history from './common/history';
+import IndexPage from './components/indexpage';
 
 class AppRouter extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class AppRouter extends React.Component {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Login}/>
+          <Route exact path="/indexpage" component={IndexPage}/>
           <Route path="*" component={Login}/>
         </Switch>
       </Router>
