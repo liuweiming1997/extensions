@@ -15,6 +15,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 
 import mrouter from '../common/mrouter';
 import user from '../common/api/user/user';
+import account from '../common/account';
 
 const styles = theme => ({
   main: {
@@ -58,6 +59,9 @@ const styles = theme => ({
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    if (account.isLogin) {
+      mrouter.goToIndexPage();
+    }
   }
 
   onUserLogin = async () => {

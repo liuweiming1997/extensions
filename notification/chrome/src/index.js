@@ -36,7 +36,6 @@ const begin = async () => {
   try {
     const result = await account.tryLogin();
     setupRouter();
-    alert('user in');
   } catch(sessionTimeoutOrNotSessionError) {
     setupRouter();
   }
