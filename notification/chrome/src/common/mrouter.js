@@ -15,11 +15,20 @@ function goToIndexPage() {
   history.push(path);
 }
 
+function goToLoginPage() {
+  const path = `/`;
+  if (issame(path)) {
+    return;
+  }
+  history.push(path); 
+}
+
 function backOnePage() {
   history.goBack();
 }
 
 export default {
+  goToLoginPage,
   goToIndexPage,
   backOnePage,
 }
