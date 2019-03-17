@@ -210,7 +210,7 @@ class AppTopBar extends React.Component {
     const RightProfile = () => (
       <Drawer open={this.state.rightProfileOpenStatus} anchor="right"  onClick={(e)=>{this.closeRightProfile()}}>
         <div
-rightProfileOpenStatustabIndex={0}
+          tabIndex={0}
           role="button"
         >
           {this.getRightProfileList()}

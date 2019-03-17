@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppTopBar from './apptopbar';
-import MeishiPage from '../page/meituan/meishi';
+
+import meishi from '../../common/api/meituan/meishi';
 
 const styles = (theme) => ({
   root: {
@@ -13,23 +13,28 @@ const styles = (theme) => ({
   }
 });
 
-class IndexPage extends React.Component {
+class RenderToList extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     const { classes } = this.props;
+
     return (
       <div className={classes.root}>
-        <AppTopBar />
-        <MeishiPage />
+        
       </div>
     );
   }
 }
 
-IndexPage.propTypes = {
+RenderToList.propTypes = {
   classes: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  createTime: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles, {name:'class_name'})(IndexPage);
+export default withStyles(styles, {name:'class_name'})(RenderToList);

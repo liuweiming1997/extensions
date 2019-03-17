@@ -72,5 +72,5 @@ class Meishi(MODEL_BASE):
             'allCommentNum': self.allCommentNum,
             'address': self.address,
             'avgPrice': self.avgPrice,
-            'createTime': self.create_time,
+            'createTime': str(self.create_time),
         }
