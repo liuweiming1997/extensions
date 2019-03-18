@@ -7,16 +7,25 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import StarBorder from '@material-ui/icons/StarBorder';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import TextField from '@material-ui/core/TextField';
 
 import meishi from '../../common/api/meituan/meishi';
 
 const styles = (theme) => ({
   root: {
     'width': '100%',
-    'height': '20%',
+    'minHeight': '20%',
     'display': 'flex',
     'flexDirection': 'column',
+    // 'overflow': 'auto',
   },
   text: {
     'width': '50%',
@@ -27,22 +36,51 @@ const styles = (theme) => ({
   avatar: {
     'width': '8%',
   },
+  ExpandMore: {
+    'display': 'flex',
+    'flexDirection': 'row',
+  }
 });
 
 class RenderToCard extends React.Component {
   constructor(props) {
     super(props);
+    this.styleTemp = null;
+    this.state = {
+      open: 'none', 
+    }
+  }
+
+  onMouseOver = (id) => {
+    this.styleTemp = document.getElementById(id).style;
+    document.getElementById(id).style.cursor="pointer";
+  }
+
+  onMouseOut = (id) => {
+    document.getElementById(id).style = this.styleTemp;
+  }
+
+  handleExpandMoreToggle = () => {
+    this.setState({
+      open: this.state.open === 'none' ? false : 'none',
+    });
   }
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root} onClick={this.props.onCardClick}>
+      <div className={classes.root}>
         <List>
-          <ListItem>
+          <ListItem key={this.props.title + this.props.subheader}>
 
-            <ListItemAvatar className={classes.avatar}>
+            <ListItemAvatar 
+              className={classes.avatar}
+              onClick={this.props.onCardClick}
+              onMouseOver={() => {this.onMouseOver(this.props.avatarUrl);}}
+              onMouseOut={() => {this.onMouseOut(this.props.avatarUrl);}}
+              id={this.props.avatarUrl}
+            >
               <Avatar alt="None" src={this.props.avatarUrl} />
             </ListItemAvatar>
 
@@ -56,7 +94,14 @@ class RenderToCard extends React.Component {
               }
             />
 
+            <IconButton aria-label="move" onClick={this.handleExpandMoreToggle}>
+              {this.state.open === 'none' ? <ExpandMore /> : <ExpandLess />}
+            </IconButton>
           </ListItem>
+
+          <div style={{"display": this.state.open}}>
+            <a href={this.props.avatarUrl} >  goto </a>
+          </div>
         </List>
         <Divider />
       </div>

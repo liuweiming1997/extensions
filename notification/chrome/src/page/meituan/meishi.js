@@ -9,8 +9,8 @@ const styles = (theme) => ({
   root: {
     'width': '100%',
     'height': '100%',
-    'display': 'block',
-    'overflow': 'scroll',
+    'display': 'flex',
+    'flexDirection': 'column',
   },
 });
 
@@ -34,6 +34,7 @@ class MeishiPage extends React.Component {
 
     const renderMeishiList = this.state.meishiList.map((oneMeishi, idx) => (
       <RenderToCard
+        key={idx}
         title={oneMeishi.title}
         subheader={oneMeishi.address}
         createTime={oneMeishi.createTime}
