@@ -38,7 +38,10 @@ class MeishiPage extends React.Component {
         subheader={oneMeishi.address}
         createTime={oneMeishi.createTime}
         avatarUrl={oneMeishi.frontImg}
-        onCardClick={()=>{alert(oneMeishi)}}
+        onCardClick={ async ()=>{
+          const url = await meishi.getUrl(oneMeishi.poiId);
+          window.open(url.meishiUrl);
+        }}
       />
     ));
 

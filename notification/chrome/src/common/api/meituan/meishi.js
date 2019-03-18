@@ -7,6 +7,9 @@ class Meishi extends RequestBase {
   getAllMeishi = async () => {
     return await this.get('/meituan/meishi/', {});
   }
+  getUrl = async (poiId) => {
+    return await this.get(`/meituan/meishi/${poiId}/`);
+  }
 };
 
 const meishi  = new Meishi();
