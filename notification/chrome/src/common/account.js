@@ -11,12 +11,20 @@ class Account {
     return this.updateUserInfo(response);
   }
 
+  logout = (response) => {
+    if (response.logout) {
+      return !this.updateUserInfo(null);
+    } else return false;
+  }
+
   updateUserInfo = (user) => {
     if (user) {
       this.isLogin = true;
       this.user = user;
       return true;
     } else {
+      this.isLogin = false;
+      this.user = {};
       return false;
     }
   }

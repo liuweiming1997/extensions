@@ -31,6 +31,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import log from '../common/lib/log';
 import account from '../common/account';
 import mrouter from '../common/mrouter';
+import user from '../common/api/user/user';
 
 const styles = theme => ({
   main: {
@@ -92,6 +93,19 @@ class AppTopBar extends React.Component {
     }
   }
 
+  handleLogoutOrLogin = async () => {
+    if (account.isLogin) {
+      const reponse = await user.logout();
+      if (reponse) {
+        mrouter.goToLoginPage();
+      }
+      //TODO(weimingliu)
+      // messagebox for logout error
+    } else {
+      mrouter.goToLoginPage();
+    }
+  }
+
   getRightProfileList() {
     const {classes} = this.props;
     const profileList = (
@@ -120,7 +134,7 @@ class AppTopBar extends React.Component {
 
           <Divider />
 
-          <ListItem button onClick={(e)=>{mrouter.goToLoginPage()}}>
+          <ListItem button onClick={this.handleLogoutOrLogin}>
             <ListItemIcon><DeleteIcon /></ListItemIcon>
             { account.isLogin ?
               <ListItemText primary="logout" /> : 

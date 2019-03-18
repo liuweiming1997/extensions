@@ -18,3 +18,11 @@ def load_or_create(username, password):
 @parse_user()
 def check_session():
     return jsonify(g.current_user.to_json())
+
+@user_api.route('/logout/', methods=['GET'])
+@parse_user()
+def logout():
+    session.pop('user_id')
+    return jsonify({
+        'logout': 'ok'
+    })

@@ -16,6 +16,10 @@ class User extends RequestBase {
     const response = await this.get('/user/check_session/');
     return response;
   }
+  logout = async () => {
+    const response = await this.get('/user/logout/');
+    return account.logout(response);
+  }
 };
 
 const user = new User();
