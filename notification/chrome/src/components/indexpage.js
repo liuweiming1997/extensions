@@ -10,7 +10,14 @@ const styles = (theme) => ({
     'height': '100%',
     'display': 'flex',
     'flexDirection': 'column',
-  }
+  },
+  apptopbarcss: {
+    'width': '100%',
+  },
+  contentlist: {
+    'width': '100%',
+    'height': '100%',
+  },
 });
 
 class IndexPage extends React.Component {
@@ -21,8 +28,12 @@ class IndexPage extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppTopBar />
-        <MeishiPage />
+        <div className={classes.apptopbarcss}>
+          <AppTopBar />
+        </div>
+        <div className={classes.contentlist}>
+          <MeishiPage />
+        </div>
       </div>
     );
   }
