@@ -5,7 +5,7 @@ from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
 
-from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text
+from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text, JSON
 from sqlalchemy.sql import func
 
 
@@ -19,6 +19,7 @@ class Meishi(MODEL_BASE):
     allCommentNum = Column(Integer)
     address = Column(String(200))
     avgPrice = Column(Float)
+    dealList = Column(JSON, nullable=True)
     create_time = Column(
         TIMESTAMP,
         nullable=False,
@@ -27,7 +28,7 @@ class Meishi(MODEL_BASE):
     )
 
     @classmethod
-    def load_or_create(cls, poiId, frontImg, title, avgScore, allCommentNum, address, avgPrice):
+    def load_or_create(cls, poiId, frontImg, title, avgScore, allCommentNum, address, avgPrice, dealList):
         meishi_obj = cls.by_id(poiId)
         if meishi_obj:
             return meishi_obj
@@ -38,7 +39,8 @@ class Meishi(MODEL_BASE):
             avgScore=avgScore,
             allCommentNum=allCommentNum,
             address=address,
-            avgPrice=avgPrice
+            avgPrice=avgPrice,
+            dealList=dealList,
         )
         try:
             Database.add(meishi_obj)
@@ -61,7 +63,7 @@ class Meishi(MODEL_BASE):
     @classmethod
     def get_all_meishi(cls):
         # latest update -24:00
-        return Database.get_many_by(Meishi, order_by='allCommentNum', limit=3)
+        return Database.get_many_by(Meishi, order_by='create_time', limit=3)
 
     def to_json(self):
         return {
@@ -72,5 +74,6 @@ class Meishi(MODEL_BASE):
             'allCommentNum': self.allCommentNum,
             'address': self.address,
             'avgPrice': self.avgPrice,
+            'dealList': self.dealList,
             'createTime': str(self.create_time),
         }

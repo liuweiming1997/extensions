@@ -9,7 +9,7 @@ from request_client.base import BaseApi
 from .meituan_config import cookies_str
 from lib.re_util import ReUtil
 
-base_url = 'https://sd.meituan.com/meishi/'
+base_url = 'http://ns.meituan.com/meishi/'
 
 class web_crawler_meituan_meishi(BaseApi):
     def __init__(self):
@@ -39,4 +39,5 @@ class web_crawler_meituan_meishi(BaseApi):
                 allCommentNum=value.get('allCommentNum'),
                 address=value.get('address'),
                 avgPrice=value.get('avgPrice'),
+                dealList=value.get('dealList'),
             )

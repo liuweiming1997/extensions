@@ -23,7 +23,7 @@ const styles = (theme) => ({
   root: {
     'width': '100%',
     'minHeight': '20%',
-    'display': 'flex',
+    'display': 'contents',
     'flexDirection': 'column',
     // 'overflow': 'auto',
   },
@@ -39,6 +39,9 @@ const styles = (theme) => ({
   ExpandMore: {
     'display': 'flex',
     'flexDirection': 'row',
+  },
+  price_text: {
+    'color': '#029bf4',
   }
 });
 
@@ -81,7 +84,7 @@ class RenderToCard extends React.Component {
               onMouseOut={() => {this.onMouseOut(this.props.avatarUrl);}}
               id={this.props.avatarUrl}
             >
-              <Avatar alt="None" src={this.props.avatarUrl} />
+              <Avatar src={this.props.avatarUrl}> None </Avatar>
             </ListItemAvatar>
 
             <ListItemText
@@ -93,14 +96,28 @@ class RenderToCard extends React.Component {
                 </React.Fragment>
               }
             />
-
-            <IconButton aria-label="move" onClick={this.handleExpandMoreToggle}>
-              {this.state.open === 'none' ? <ExpandMore /> : <ExpandLess />}
-            </IconButton>
+            {
+              this.props.dealList && 
+              <IconButton aria-label="move" onClick={this.handleExpandMoreToggle}>
+                {this.state.open === 'none' ? <ExpandMore /> : <ExpandLess />}
+              </IconButton>
+            }
           </ListItem>
 
           <div style={{"display": this.state.open}}>
-            <a href={this.props.avatarUrl} >  goto </a>
+            <p style={{"color": "#029bf4"}}> buying list </p>
+            {this.props.dealList.map((oneItem, idx) => (
+              <div>
+                <ListItem button>
+                  <ListItemText 
+                    className={classes.price_text}
+                    primary={oneItem.title} 
+                    secondary={`price: ${oneItem.price}, soldCounts: ${oneItem.soldCounts}`} 
+                  />
+                </ListItem>
+                <Divider />
+              </div>
+            ))}
           </div>
         </List>
         <Divider />
@@ -116,6 +133,7 @@ RenderToCard.propTypes = {
   createTime: PropTypes.string.isRequired,
   avatarUrl: PropTypes.string.isRequired,
   onCardClick: PropTypes.func.isRequired,
+  dealList: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles, {name:'class_name'})(RenderToCard);
