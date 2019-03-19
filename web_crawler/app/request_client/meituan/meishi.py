@@ -28,7 +28,6 @@ class web_crawler_meituan_meishi(BaseApi):
         response = cls.get(base_url)
         regex = ReUtil.get_regex(begin_with=['"poiInfos":'], end_with=['},"comHeader"'])
         result = regex.findall(response.text)
-        print(response.text)
         result = json.loads(result[0][1])
 
         for value in result:
