@@ -39,7 +39,7 @@ class Dianying(MODEL_BASE):
             region=region,
             score=score,
             img=img,
-            buy_ticket=buy_ticket,
+            buy_ticket=buy_ticket if buy_ticket else None,
             onshow_time=onshow_time,
         )
         try:
