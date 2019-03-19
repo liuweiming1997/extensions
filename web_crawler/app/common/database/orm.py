@@ -50,7 +50,13 @@ class Database:
     def get_many_by(cls, model_type, *filters, order_by=None, offset=None, limit=None):
         query = cls.get_session().query(model_type).filter(*filters)
         if order_by:
-            query = query.order_by(desc(order_by))
+            order_by = [order_by] if not isinstance(order_by, list) else order_by
+            for item in order_by:
+                if item[0] == '-':
+                    query = query.order_by(desc(item[1:]))
+                else:
+                    query = query.order_by(item)
+
         if offset:
             query = query.offset(offset)
         if limit:

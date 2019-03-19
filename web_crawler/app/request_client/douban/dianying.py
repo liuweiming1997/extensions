@@ -99,5 +99,5 @@ class web_crawler_douban_dianying(BaseApi):
 
     @classmethod
     def do(cls):
-        # cls.do_onshow()
+        cls.do_onshow()
         cls.do_upcoming()
