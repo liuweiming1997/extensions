@@ -13,12 +13,13 @@ class Dianying(MODEL_BASE):
     __tablename__ = 'douban_dianying'
     id = Column(Integer, primary_key=True)
     file_id = Column(Integer)
-    url = Column(String(200))
+    url = Column(String(2000))
     title = Column(String(200))
     region = Column(String(200))
     score = Column(Float)
-    img = Column(String(200))
-    buy_ticket = Column(String(200))
+    img = Column(String(2000))
+    buy_ticket = Column(String(2000))
+    onshow_time=Column(String(200), server_default=None)
     create_time = Column(
         TIMESTAMP,
         nullable=False,
@@ -27,7 +28,7 @@ class Dianying(MODEL_BASE):
     )
 
     @classmethod
-    def load_or_create(cls, file_id, url, title, region, score, img, buy_ticket):
+    def load_or_create(cls, file_id, url, title, region, score, img, buy_ticket, onshow_time=None):
         dianying_obj = cls.by_id(file_id)
         if dianying_obj:
             return dianying_obj
@@ -39,6 +40,7 @@ class Dianying(MODEL_BASE):
             score=score,
             img=img,
             buy_ticket=buy_ticket,
+            onshow_time=onshow_time,
         )
         try:
             Database.add(dianying_obj)
@@ -72,5 +74,6 @@ class Dianying(MODEL_BASE):
             'region': self.region,
             'url': self.url,
             'buyTicket': self.buy_ticket,
+            'onShowTime': self.onshow_time,
             'createTime': str(self.create_time),
         }

@@ -57,3 +57,7 @@ class ReUtil:
     @classmethod
     def conver_to_list(cls, value) -> 'list':
         return [] if not value else [value] if not isinstance(value, list) else value
+
+    @classmethod
+    def get_all_number_to_list(cls, string):
+        return re.findall('\d+\.?\d*', string)
