@@ -31,9 +31,12 @@ class BaseApi:
 
     @classmethod
     def get(cls, url):
-        return requests.get(
+        session = requests.Session()
+        response = session.get(
             url=url,
             cookies=parse_cookies(cls.get_cookies()),
             headers=parse_headers(cls.get_headers()),
             timeout=12, #in seconds
         )
+        response.encoding = 'utf-8'
+        return response

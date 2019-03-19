@@ -63,7 +63,7 @@ class Meishi(MODEL_BASE):
     @classmethod
     def get_all_meishi(cls):
         # latest update -24:00
-        return Database.get_many_by(Meishi, order_by='create_time', limit=3)
+        return Database.get_many_by(Meishi, order_by='id', limit=3)
 
     def to_json(self):
         return {
