@@ -25,9 +25,11 @@ class Logger:
         return logger
 
     def info(self, msg):
+        print(msg)
         self.info_logger.info(msg)
 
     def error(self, msg):
+        print(msg)
         self.error_logger.error(msg)
 
 log = Logger()
