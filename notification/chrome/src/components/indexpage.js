@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppTopBar from './apptopbar';
 import MeishiPage from '../page/meituan/meishi';
+import DianyingPage from '../page/douban/dianying';
 
 const styles = (theme) => ({
   root: {
@@ -35,6 +36,7 @@ class IndexPage extends React.Component {
           <AppTopBar />
         </div>
         <div className={classes.contentlist}>
+          <DianyingPage />
           <MeishiPage />
         </div>
       </div>

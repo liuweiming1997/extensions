@@ -17,8 +17,6 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import TextField from '@material-ui/core/TextField';
 
-import meishi from '../../common/api/meituan/meishi';
-
 const styles = (theme) => ({
   root: {
     'width': '100%',
