@@ -5,6 +5,7 @@ import json
 from lxml import etree
 import requests
 
+from models.douban.dianying import Dianying
 from request_client.base import BaseApi
 from .dianying_config import cookies_str
 
@@ -27,12 +28,15 @@ class web_crawler_douban_dianying(BaseApi):
     @classmethod
     def handle_one_item(cls, one_item):
         html = etree.HTML(etree.tostring(one_item).decode('utf-8'))
+        
+        file_id = html.xpath('//li/@id')[0]
         title = html.xpath('//li/@data-title')[0]
         score = html.xpath('//li/@data-score')[0]
         region = html.xpath('//li/@data-region')[0]
         img = html.xpath('//li/ul/li/a/img/@src')[0]
         url, buy_ticket = html.xpath('//li/ul/li/a/@href')[0], html.xpath('//li/ul/li/a/@href')[2]
-        print([title, score, region, img, url, buy_ticket])
+        
+        Dianying.load_or_create(file_id=file_id, title=title, score=score, region=region, img=img, url=url, buy_ticket=buy_ticket)
 
 
     @classmethod
