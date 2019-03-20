@@ -67,11 +67,11 @@ class Dianying(MODEL_BASE):
 
     @classmethod
     def get_onshow(cls):
-        return Database.get_many_by(cls, cls.onshow_time == None, order_by='-score', limit=3)
+        return Database.get_many_by(cls, cls.onshow_time == None, order_by='-score')
 
     @classmethod
     def get_upcoming(cls):
-        return Database.get_many_by(cls, cls.onshow_time != None, order_by=['onshow_time', '-score'], limit=3)
+        return Database.get_many_by(cls, cls.onshow_time != None, order_by=['onshow_time', '-score'])
 
     def to_json(self):
         return {

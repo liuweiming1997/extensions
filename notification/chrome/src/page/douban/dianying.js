@@ -35,23 +35,17 @@ class DianyingPage extends React.Component {
   render() {
     const { classes } = this.props;
 
-    const renderOnshow = () => (
+    const renderMovie = () => (
       <RenderToCard
         key="123"
-        theMovieList={this.state.onshowMovie}
-      />
-    )
-
-    const renderUpcoming = () => (
-      <RenderToCard
-        key="456"
-        theMovieList={this.state.upcomingMovie}
+        theMovieOnshow={this.state.onshowMovie}
+        theMovieUpcoming={this.state.upcomingMovie}
       />
     )
 
     return (
       <div className={classes.root}>
-        {renderOnshow()}
+        {renderMovie()}
       </div>
     );
   }

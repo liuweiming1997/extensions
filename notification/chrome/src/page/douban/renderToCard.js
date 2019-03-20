@@ -17,6 +17,7 @@ const styles = (theme) => ({
     'height': '100%',
     'display': 'flex',
     'flexDirection': 'row',
+    'justifyContent': 'space-between',
   },
   Carousel: {
     'width': '250px',
@@ -26,6 +27,10 @@ const styles = (theme) => ({
   img: {
     'width': '250px',
     'height': '350px',
+  },
+  legend: {
+    display: 'flex',
+    flexDirection: 'column',
   }
 });
 
@@ -47,23 +52,82 @@ class RenderToCard extends React.Component {
     document.getElementById(id).style = this.styleTemp;
   }
 
+  handleClick = (url) => {
+    window.open(url);
+  }
+
   render() {
     const { classes } = this.props;
-    const renderMovie = this.props.theMovieList.map((movie, idx) => (
-      <div className={classes.img}>
-        <img className={classes.img} src={movie.img} alt="None" />
-        <h1 className="legend">Legend 1</h1>
+
+    const showModal = (movie) => (
+      <div 
+        className="legend"
+        id={movie.title}
+        onMouseOver={()=>{this.onMouseOver(movie.title)}}
+        onMouseOut={()=>{this.onMouseOut(movie.title)}}
+        onClick={() => {this.handleClick(movie.buyTicket)}}
+      >
+        <span style={{"display": "block"}}> {movie.title}</span>
+        <span> {movie.region}</span>
+        <span> {movie.score}</span>
+        {
+          movie.onShowTime && 
+          <span style={{"display": "block"}}> {movie.onShowTime}</span>
+        }
+      </div>
+    )
+
+    const renderOnshow = this.props.theMovieOnshow.map((movie, idx) => (
+      <div 
+        className={classes.img}
+        id={movie.url}
+        onMouseOver={()=>{this.onMouseOver(movie.url)}}
+        onMouseOut={()=>{this.onMouseOut(movie.url)}}
+        onClick={() => {this.handleClick(movie.url)}}
+      >
+        <img 
+          className={classes.img} 
+          src={movie.img}
+          alt="None" />
+        {showModal(movie)}
       </div>
     ));
-    
+
+    const renderUpcoming = this.props.theMovieUpcoming.map((movie, idx) => (
+      <div 
+        className={classes.img}
+        id={movie.url}
+        onMouseOver={()=>{this.onMouseOver(movie.url)}}
+        onMouseOut={()=>{this.onMouseOut(movie.url)}}
+        onClick={() => {this.handleClick(movie.url)}}
+      >
+        <img className={classes.img} src={movie.img} alt="None" />
+        {showModal(movie)}
+      </div>
+    ));
+
     return (
       <div className={classes.fileRoot}>
         <Carousel 
           className={classes.Carousel}
           showThumbs={false}
+          showIndicators={false}
+          autoPlay
+          stopOnHover
         >
-          {renderMovie}
+          {renderOnshow}
         </Carousel>
+
+        <Carousel 
+          className={classes.Carousel}
+          showThumbs={false}
+          showIndicators={false}
+          autoPlay
+          stopOnHover
+        >
+          {renderUpcoming}
+        </Carousel>
+
       </div>
     );
   }
@@ -71,7 +135,8 @@ class RenderToCard extends React.Component {
 
 RenderToCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  theMovieList: PropTypes.array.isRequired,
+  theMovieOnshow: PropTypes.array.isRequired,
+  theMovieUpcoming: PropTypes.array.isRequired,
   // img: PropTypes.string.isRequired,
   // title: PropTypes.string.isRequired,
   // region: PropTypes.string.isRequired,
