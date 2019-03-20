@@ -52,7 +52,6 @@ class DianyingPage extends React.Component {
     return (
       <div className={classes.root}>
         {renderOnshow()}
-        {renderUpcoming()}
       </div>
     );
   }

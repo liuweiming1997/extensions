@@ -8,27 +8,25 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 const styles = (theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+  fileRoot: {
+    'width': '100%',
+    'height': '100%',
+    'display': 'flex',
+    'flexDirection': 'row',
   },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
+  Carousel: {
+    'width': '250px',
+    'minheight': '150px',
+    // 'overflow': 'hidden',
   },
-  gridList: {
-    width: '100%',
-    flexWrap: 'nowrap',
-    transform: 'translateZ(0)',
-  },
-  titleBar: {
-    background:
-      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-  },
+  img: {
+    'width': '250px',
+    'height': '350px',
+  }
 });
 
 class RenderToCard extends React.Component {
@@ -52,26 +50,20 @@ class RenderToCard extends React.Component {
   render() {
     const { classes } = this.props;
     const renderMovie = this.props.theMovieList.map((movie, idx) => (
-      <GridListTile key={movie.img}>
-        <img src={movie.img} alt="None" />
-        <GridListTileBar
-          className={classes.titleBar}
-          title={movie.title}
-          subtitle={<span>{movie.region + ' ' + movie.score}</span>}
-          actionIcon={
-            <IconButton className={classes.icon}>
-              <InfoIcon />
-            </IconButton>
-          }
-        />
-      </GridListTile>
+      <div className={classes.img}>
+        <img className={classes.img} src={movie.img} alt="None" />
+        <h1 className="legend">Legend 1</h1>
+      </div>
     ));
     
     return (
-      <div className={classes.root}>
-        <GridList cellHeight={300} className={classes.gridList}>
+      <div className={classes.fileRoot}>
+        <Carousel 
+          className={classes.Carousel}
+          showThumbs={false}
+        >
           {renderMovie}
-        </GridList>
+        </Carousel>
       </div>
     );
   }
