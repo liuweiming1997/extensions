@@ -1,26 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
 
 import RenderToCard from './renderToCard';
 import dianying from '../../common/api/douban/dianying';
 
 const styles = (theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-    flexDirection: 'row',
-  },
-  gridList: {
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
+    'minWidth': '100%',
+    'minHeight': '40%',
+    'display': 'flex',
+    'flexDirection': 'column',
   },
 });
 
@@ -35,39 +25,34 @@ class DianyingPage extends React.Component {
 
   componentWillMount = async () => {
     const onshow = await dianying.getOnshowMovie();
+    const upcoming = await dianying.getUpcomingMovie();
     this.setState({
       onshowMovie: onshow,
+      upcomingMovie: upcoming,
     });
-    // const upcoming = await dianying.getUpcomingMovie();
-    // this.setState({
-    //   upcomingMovie: upcoming,
-    // });
   }
 
   render() {
     const { classes } = this.props;
 
-    const renderOnshow = this.state.onshowMovie.map((movie, idx) => (
+    const renderOnshow = () => (
       <RenderToCard
-        key={idx}
-        img={movie.img}
-        title={movie.title}
-        region={movie.region}
-        score={movie.score}
+        key="123"
+        theMovieList={this.state.onshowMovie}
       />
-    ));
+    )
 
-    // const renderUpcoming = this.state.upcomingMovie.map((movie, idx) => (
-    //   <RenderToCard
-    //     key={idx}
-    //   />
-    // ));
+    const renderUpcoming = () => (
+      <RenderToCard
+        key="456"
+        theMovieList={this.state.upcomingMovie}
+      />
+    )
 
     return (
       <div className={classes.root}>
-        <GridList cellHeight={300} className={classes.gridList}>
-          {renderOnshow}
-        </GridList>
+        {renderOnshow()}
+        {renderUpcoming()}
       </div>
     );
   }

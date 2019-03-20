@@ -21,6 +21,8 @@ const styles = (theme) => ({
   },
   gridList: {
     width: '100%',
+    flexWrap: 'nowrap',
+    transform: 'translateZ(0)',
   },
   titleBar: {
     background:
@@ -49,12 +51,13 @@ class RenderToCard extends React.Component {
 
   render() {
     const { classes } = this.props;
-    return (
-      <GridListTile key={this.props.img}>
-        <img src={this.props.img} />
+    const renderMovie = this.props.theMovieList.map((movie, idx) => (
+      <GridListTile key={movie.img}>
+        <img src={movie.img} alt="None" />
         <GridListTileBar
-          title={this.props.title}
-          subtitle={<span>{this.props.region + ' ' + this.props.score}</span>}
+          className={classes.titleBar}
+          title={movie.title}
+          subtitle={<span>{movie.region + ' ' + movie.score}</span>}
           actionIcon={
             <IconButton className={classes.icon}>
               <InfoIcon />
@@ -62,17 +65,26 @@ class RenderToCard extends React.Component {
           }
         />
       </GridListTile>
+    ));
+    
+    return (
+      <div className={classes.root}>
+        <GridList cellHeight={300} className={classes.gridList}>
+          {renderMovie}
+        </GridList>
+      </div>
     );
   }
 }
 
 RenderToCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  img: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  region: PropTypes.string.isRequired,
-  score: PropTypes.string,
-  onshowTime: PropTypes.string
+  theMovieList: PropTypes.array.isRequired,
+  // img: PropTypes.string.isRequired,
+  // title: PropTypes.string.isRequired,
+  // region: PropTypes.string.isRequired,
+  // score: PropTypes.string,
+  // onshowTime: PropTypes.string
 };
 
 export default withStyles(styles, {name:'class_name'})(RenderToCard);
