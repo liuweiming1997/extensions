@@ -124,14 +124,7 @@ class AppTopBar extends React.Component {
               primary="profile" 
             />
           </ListItem>
-
-          <Divider />
-
-          <ListItem button onClick={(e)=>{mrouter.goToWriteBlogPage()}}>
-            <ListItemIcon><AddIcon /></ListItemIcon>
-            <ListItemText primary="write blog" />
-          </ListItem>
-
+          
           <Divider />
 
           <ListItem button onClick={this.handleLogoutOrLogin}>
