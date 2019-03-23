@@ -23,6 +23,9 @@ const styles = (theme) => ({
     'overflow': 'scroll',
     'marginTop': '4%',
   },
+  fly: {
+    'marginLeft': '62px',
+  }
 });
 
 class IndexPage extends React.Component {
@@ -40,6 +43,12 @@ class IndexPage extends React.Component {
           <Data />
           <DianyingPage />
           <MeishiPage />
+          <div className={classes.fly}>
+            <p> 广州(CAN) --> 上海(虹桥国际机场)(SHA)  2019.4.1 570 </p>
+            <p> 广州(CAN) --> 上海(虹桥国际机场)(SHA)  2019.4.2 570 </p>
+            <p> 广州(CAN) --> 上海(虹桥国际机场)(SHA)  2019.4.3 570 </p>
+            <p> 广州(CAN) --> 上海(虹桥国际机场)(SHA)  2019.4.4 510 </p>
+          </div>
         </div>
       </div>
     );
