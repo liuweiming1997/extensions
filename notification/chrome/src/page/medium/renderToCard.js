@@ -73,14 +73,14 @@ class RenderToCard extends React.Component {
     return (
       <div className={classes.root}>
         <List>
-          <ListItem key={this.props.title + this.props.subheader}>
+          <ListItem key={this.props.title}>
 
             <ListItemAvatar 
               className={classes.avatar}
               onClick={this.props.onCardClick}
-              onMouseOver={() => {this.onMouseOver(this.props.avatarUrl);}}
-              onMouseOut={() => {this.onMouseOut(this.props.avatarUrl);}}
-              id={this.props.avatarUrl}
+              onMouseOver={() => {this.onMouseOver(this.props.url);}}
+              onMouseOut={() => {this.onMouseOut(this.props.url);}}
+              id={this.props.url}
             >
               <Avatar src={this.props.avatarUrl}> None </Avatar>
             </ListItemAvatar>
