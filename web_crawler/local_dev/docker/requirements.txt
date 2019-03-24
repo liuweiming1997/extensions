@@ -3,3 +3,4 @@ sqlalchemy
 alembic
 lxml
 requests[socks]
+requests[security]
