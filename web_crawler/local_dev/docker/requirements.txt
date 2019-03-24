@@ -2,3 +2,4 @@ requests
 sqlalchemy
 alembic
 lxml
+requests[socks]
