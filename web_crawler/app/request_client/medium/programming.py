@@ -8,7 +8,7 @@ import requests
 from lib.re_util import ReUtil
 from lib.hash_util import HashUtil
 from common.lib.logger import log
-from models.douban.dianying import Dianying
+from models.medium.programming import Programming
 from request_client.base import BaseApi
 from .programming_config import cookies_str
 
@@ -39,9 +39,7 @@ class web_crawler_medium_programming(BaseApi):
             url = one_page.xpath('article/div/div/a/@href')[0]
             title = one_page.xpath('article/div/div/a/div/h4/text()')[0]
             hash_id = HashUtil.get_hash_by_string(url)
-            print(url)
-            print(title)
-            print(hash_id)
+            Programming.load_or_create(hash_id, title, url)
         except Exception as e:
             log.error(str(e))
 
