@@ -7,6 +7,7 @@ from common.lib.errors.error_handler import chrome_server_error_handler
 from endpoint.meituan.meishi import meishi_api
 from endpoint.user import user_api
 from endpoint.douban.dianying import dianying_api
+from endpoint.medium.programming import medium_programming_api
 
 app = Flask(__name__)
 
@@ -17,6 +18,7 @@ def setup_blueprint():
     app.register_blueprint(user_api)
     app.register_blueprint(dianying_api)
     app.register_blueprint(meishi_api)
+    app.register_blueprint(medium_programming_api)
 
 def setup():
     CORS(app, supports_credentials=True)
