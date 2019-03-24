@@ -73,11 +73,8 @@ class Database:
     @classmethod
     def delete_one_by(cls, model_type, *filters):
         session = cls.get_session()
-        try:
-            session.query(model_type).filter(*filters).delete()
-            session.commit()
-        except Exception as e:
-            session.rollback()
+        session.query(model_type).filter(*filters).delete()
+        session.commit()
 
     @classmethod
     def commit(cls):

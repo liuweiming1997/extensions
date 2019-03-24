@@ -49,6 +49,7 @@ class Meishi(MODEL_BASE):
         #TODO(weiming liu) cache sqlalchemy for not cache base exception
         except Exception as e:
             log.error(str(e))
+            Database.rollback()
             # TODO(weiming liu) raise error for not return None
             return None
 
@@ -58,7 +59,11 @@ class Meishi(MODEL_BASE):
 
     @classmethod
     def del_by_id(cls, poiId):
-        return Database.delete_one_by(cls, cls.poiId == poiId)
+        try:
+            Database.delete_one_by(cls, cls.poiId == poiId)
+            return True
+        except Exception as e:
+            Database.rollback()
 
     @classmethod
     def get_all_meishi(cls):

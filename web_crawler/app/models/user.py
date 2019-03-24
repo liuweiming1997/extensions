@@ -41,6 +41,7 @@ class User(MODEL_BASE):
         #TODO(weiming liu) cache sqlalchemy error for not cache base exception
         except Exception as e:
             log.error(str(e))
+            Database.rollback()
             raise DatabaseError('can not create user {username}'.format(usernmae=usernmae))
 
     @classmethod
@@ -53,7 +54,12 @@ class User(MODEL_BASE):
 
     @classmethod
     def del_by_id(cls, user_id):
-        return Database.delete_one_by(cls, cls.id == user_id)
+        try:
+            Database.delete_one_by(cls, cls.id == user_id)
+            return True
+        except Exception as e:
+            Database.rollback()
+            return False
 
     def to_json(self):
         return {

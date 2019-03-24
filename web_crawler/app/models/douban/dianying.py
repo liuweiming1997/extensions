@@ -49,6 +49,7 @@ class Dianying(MODEL_BASE):
         #TODO(weiming liu) cache sqlalchemy for not cache base exception
         except Exception as e:
             log.error(str(e))
+            Database.rollback()
             # TODO(weiming liu) raise error for not return None
             return None
 
@@ -58,7 +59,12 @@ class Dianying(MODEL_BASE):
 
     @classmethod
     def del_by_id(cls, file_id):
-        return Database.delete_one_by(cls, cls.file_id == file_id)
+        try:
+            Database.delete_one_by(cls, cls.file_id == file_id)
+            return True
+        except Exception as e:
+            Database.rollback()
+            return False
 
     @classmethod
     def get_all_dianying(cls):
