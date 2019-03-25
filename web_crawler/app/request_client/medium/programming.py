@@ -51,7 +51,6 @@ class web_crawler_medium_programming(BaseApi):
             title = one_page.xpath('article/div/div/a/div/h4/text()')[0]
             hash_id = HashUtil.get_hash_by_string(url)
             Programming.load_or_create(hash_id, title, url)
-            print(title)
         except Exception as e:
             log.error(str(e))
 
