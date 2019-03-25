@@ -34,6 +34,17 @@ class web_crawler_medium_programming(BaseApi):
         return None
 
     @classmethod
+    def get_by_proxies(cls, url):
+        return cls.get(base_programming_url, proxies=proxies)
+
+    @classmethod
+    def fetch_avatar_url(cls, url):
+        response = cls.get_by_proxies(url)
+        root = etree.HTML(response.text)
+        img_class = root.xpath('//*[@id="_obv.shell._surface_1553479885925"]/div/main/article/div/section[1]/div[2]/div/div/div[1]/a/img')
+        print(img_class)
+
+    @classmethod
     def handle_one_page(cls, one_page):
         try:
             url = one_page.xpath('article/div/div/a/@href')[0]
@@ -45,7 +56,7 @@ class web_crawler_medium_programming(BaseApi):
 
     @classmethod
     def do(cls):
-        response = cls.get(base_programming_url, proxies=proxies)
+        response = cls.get_by_proxies(base_programming_url)
         root = etree.HTML(response.text)
         div_list_popluar = root.xpath(popular_in_programmer)
         for one_page in div_list_popluar:

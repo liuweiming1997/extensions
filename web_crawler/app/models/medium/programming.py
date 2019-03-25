@@ -58,7 +58,7 @@ class Programming(MODEL_BASE):
 
     @classmethod
     def get_all_programming(cls):
-        return Database.get_many_by(cls, order_by='id', limit=3)
+        return Database.get_many_by(cls, order_by='-id', limit=3)
 
     def to_json(self):
         return {

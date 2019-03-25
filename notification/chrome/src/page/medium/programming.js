@@ -37,6 +37,7 @@ class Programming extends React.Component {
         key={idx}
         title={oneBlog.title}
         url={oneBlog.url}
+        avatarUrl='https://miro.medium.com/fit/c/64/64/0*k_lJT9_9yugjlHkf.jpg'
         onCardClick={ async ()=>{
           window.open(oneBlog.url);
         }}
