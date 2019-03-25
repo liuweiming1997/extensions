@@ -24,4 +24,6 @@ RUN chmod 600 /var/spool/cron/crontabs/root
 
 WORKDIR ${WORKSPACE}/app
 
+RUN sslocal -s 95.163.202.160 -p 1080 -k "stupidonevimi" -l 1080 -t 18000 -m aes-256-cfb -d start
+
 ENTRYPOINT alembic upgrade head && cron && ":" >> /log/crawler/crontab.log && tail -f /log/crawler/crontab.log
