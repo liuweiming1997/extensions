@@ -9,6 +9,9 @@ class Config_Base(metaclass=Singleton):
     MYSQL_ROOT_PASSWORD = 'root'
     DB_HOST = '192.18.0.3'
     MYSQL_DATABASE = 'chrome_db'
+
+    REDIS_HOST = '192.18.0.4'
+    REDIS_PORT = 6379
     
     def __init__(self):
         pass
