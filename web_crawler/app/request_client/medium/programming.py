@@ -51,6 +51,7 @@ class web_crawler_medium_programming(BaseApi):
             title = one_page.xpath('article/div/div/a/div/h4/text()')[0]
             hash_id = HashUtil.get_hash_by_string(url)
             Programming.load_or_create(hash_id, title, url)
+            print(title)
         except Exception as e:
             log.error(str(e))
 
@@ -59,5 +60,5 @@ class web_crawler_medium_programming(BaseApi):
         response = cls.get_by_proxies(base_programming_url)
         root = etree.HTML(response.text)
         div_list_popluar = root.xpath(popular_in_programmer)
-        for one_page in div_list_popluar:
+        for one_page in reversed(div_list_popluar):
             cls.handle_one_page(one_page)
