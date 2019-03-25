@@ -1,7 +1,6 @@
-requests
+requests[socks]
+requests[security]
 sqlalchemy
 alembic
 lxml
-requests[socks]
-requests[security]
 shadowsocks
