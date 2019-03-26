@@ -12,3 +12,4 @@ class ExpectionErrorMapping:
     INTERNAL_DATABASE_ERROR = 2
     UNKNOWN_ERROR = 3
     CACHE_ERROR = 4
+    UN_COMPLETE_ERROR = 5
