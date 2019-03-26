@@ -55,12 +55,12 @@ class Meishi(MODEL_BASE):
 
     @classmethod
     def by_id(cls, poiId):
-        return Database.get_one_by(cls, cls.poiId == poiId)
+        return Database.get_one_by(Meishi, Meishi.poiId == poiId)
 
     @classmethod
     def del_by_id(cls, poiId):
         try:
-            Database.delete_one_by(cls, cls.poiId == poiId)
+            Database.delete_one_by(Meishi, Meishi.poiId == poiId)
             return True
         except Exception as e:
             Database.rollback()

@@ -45,12 +45,12 @@ class Programming(MODEL_BASE):
 
     @classmethod
     def by_hash_id(cls, hash_id):
-        return Database.get_one_by(cls, cls.hash_id == hash_id)
+        return Database.get_one_by(Programming, Programming.hash_id == hash_id)
 
     @classmethod
     def del_by_id(cls, hash_id):
         try:
-            Database.delete_one_by(cls, cls.hash_id == hash_id)
+            Database.delete_one_by(Programming, Programming.hash_id == hash_id)
             return True
         except Exception as e:
             Database.rollback()
@@ -58,7 +58,7 @@ class Programming(MODEL_BASE):
 
     @classmethod
     def get_all_programming(cls):
-        return Database.get_many_by(cls, order_by='-id', limit=3)
+        return Database.get_many_by(Programming, order_by='-id', limit=3)
 
     def to_json(self):
         return {

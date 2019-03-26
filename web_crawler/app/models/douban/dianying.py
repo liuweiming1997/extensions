@@ -55,12 +55,12 @@ class Dianying(MODEL_BASE):
 
     @classmethod
     def by_id(cls, file_id):
-        return Database.get_one_by(cls, cls.file_id == file_id)
+        return Database.get_one_by(Dianying, Dianying.file_id == file_id)
 
     @classmethod
     def del_by_id(cls, file_id):
         try:
-            Database.delete_one_by(cls, cls.file_id == file_id)
+            Database.delete_one_by(Dianying, Dianying.file_id == file_id)
             return True
         except Exception as e:
             Database.rollback()
@@ -69,15 +69,15 @@ class Dianying(MODEL_BASE):
     @classmethod
     def get_all_dianying(cls):
         # latest update -24:00
-        return Database.get_many_by(cls, order_by='score', limit=3)
+        return Database.get_many_by(Dianying, order_by='score', limit=3)
 
     @classmethod
     def get_onshow(cls):
-        return Database.get_many_by(cls, cls.onshow_time == None, order_by='-score')
+        return Database.get_many_by(Dianying, Dianying.onshow_time == None, order_by='-score')
 
     @classmethod
     def get_upcoming(cls):
-        return Database.get_many_by(cls, cls.onshow_time != None, order_by=['onshow_time', '-score'])
+        return Database.get_many_by(Dianying, Dianying.onshow_time != None, order_by=['onshow_time', '-score'])
 
     def to_json(self):
         return {

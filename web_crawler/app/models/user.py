@@ -46,16 +46,16 @@ class User(MODEL_BASE):
 
     @classmethod
     def by_name(cls, username):
-        return Database.get_one_by(cls, cls.username == username)
+        return Database.get_one_by(User, User.username == username)
 
     @classmethod
     def by_id(cls, user_id):
-        return Database.get_one_by(cls, cls.id == user_id)
+        return Database.get_one_by(User, User.id == user_id)
 
     @classmethod
     def del_by_id(cls, user_id):
         try:
-            Database.delete_one_by(cls, cls.id == user_id)
+            Database.delete_one_by(User, User.id == user_id)
             return True
         except Exception as e:
             Database.rollback()
