@@ -1,14 +1,39 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from collections import Iterable
+import functools
 
 from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
-from models.decorator_tool import return_static_programming
 
 from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text, JSON
 from sqlalchemy.sql import func
 
+def convert_to_static_programming(search_result):
+    if not search_result:
+        return None
+    if isinstance(search_result, Iterable):
+        result = []
+        for one_programming in search_result:
+            result.append(convert_to_static_programming(one_programming))
+        return result
+    else:
+        return Programming(
+            id=search_result.id,
+            hash_id=search_result.hash_id,
+            title=search_result.title,
+            url=search_result.url,
+            create_time=search_result.create_time,
+        )
+
+def return_static_programming(the_func):
+    @functools.wraps(the_func)
+    def wrapper_func(*args, **kwargs):
+        programming_obj = convert_to_static_programming(the_func(*args, **kwargs))
+        Database.commit()
+        return programming_obj
+    return wrapper_func
 
 class Programming(MODEL_BASE):
     __tablename__ = 'medium_programming'
@@ -60,6 +85,7 @@ class Programming(MODEL_BASE):
             return False
 
     @classmethod
+    @return_static_programming
     def get_all_programming(cls):
         return Database.get_many_by(Programming, order_by='-id', limit=3)
 
