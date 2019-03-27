@@ -44,7 +44,9 @@ class Database:
 
     @classmethod
     def get_one_by(cls, model_type, *filters):
-        return cls.get_session().query(model_type).filter(*filters).first()
+        result = cls.get_session().query(model_type).filter(*filters).first()
+        cls.commit()
+        return result
 
     @classmethod
     def get_many_by(cls, model_type, *filters, order_by=None, offset=None, limit=None):
@@ -61,7 +63,9 @@ class Database:
             query = query.offset(offset)
         if limit:
             query = query.limit(limit)
-        return query.all()
+        result = query.all()
+        cls.commit()
+        return result
 
     @classmethod
     def add(cls, obj):
@@ -74,7 +78,6 @@ class Database:
     def delete_one_by(cls, model_type, *filters):
         session = cls.get_session()
         session.query(model_type).filter(*filters).delete()
-        session.commit()
 
     @classmethod
     def commit(cls):

@@ -51,6 +51,7 @@ class Programming(MODEL_BASE):
     def del_by_id(cls, hash_id):
         try:
             Database.delete_one_by(Programming, Programming.hash_id == hash_id)
+            Database.commit()
             return True
         except Exception as e:
             Database.rollback()

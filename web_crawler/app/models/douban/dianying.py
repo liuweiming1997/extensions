@@ -61,6 +61,7 @@ class Dianying(MODEL_BASE):
     def del_by_id(cls, file_id):
         try:
             Database.delete_one_by(Dianying, Dianying.file_id == file_id)
+            Database.commit()
             return True
         except Exception as e:
             Database.rollback()

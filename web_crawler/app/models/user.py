@@ -56,6 +56,7 @@ class User(MODEL_BASE):
     def del_by_id(cls, user_id):
         try:
             Database.delete_one_by(User, User.id == user_id)
+            Database.commit()
             return True
         except Exception as e:
             Database.rollback()

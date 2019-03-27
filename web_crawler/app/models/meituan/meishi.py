@@ -61,6 +61,7 @@ class Meishi(MODEL_BASE):
     def del_by_id(cls, poiId):
         try:
             Database.delete_one_by(Meishi, Meishi.poiId == poiId)
+            Database.commit()
             return True
         except Exception as e:
             Database.rollback()
