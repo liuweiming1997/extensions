@@ -37,7 +37,7 @@ def return_static_dianying(the_func):
     def wrapper_func(*args, **kwargs):
         dianying_obj = convert_to_static_dianying(the_func(*args, **kwargs))
         Database.commit()
-        return programming_obj
+        return dianying_obj
     return wrapper_func
 
 class Dianying(MODEL_BASE):
