@@ -4,7 +4,7 @@
 from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
-from .decorator_tool import return_static_meishi
+from models.decorator_tool import return_static_meishi
 
 from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text, JSON
 from sqlalchemy.sql import func
