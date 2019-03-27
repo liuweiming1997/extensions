@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from collections import Iterable
+import functools
 
 from common.lib.errors.expection import DatabaseError, ArgsError
 from common.lib.logger import log
@@ -9,6 +11,29 @@ from common.database.model_base import MODEL_BASE
 from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text
 from sqlalchemy.sql import func
 
+def convert_to_static_user(search_result):
+    if not search_result:
+        return None
+    if isinstance(search_result, Iterable):
+        result = []
+        for one_user in search_result:
+            result.append(convert_to_static_user(one_user))
+        return result
+    else:
+        return User(
+            id=search_result.id,
+            username=search_result.username,
+            password=search_result.password,
+            create_time=search_result.create_time,
+        )
+
+def return_static_user(the_func):
+    @functools.wraps(the_func)
+    def wrapper_func(*args, **kwargs):
+        user_obj = convert_to_static_user(the_func(*args, **kwargs))
+        Database.commit()
+        return user_obj
+    return wrapper_func
 
 class User(MODEL_BASE):
     __tablename__ = 'user'
@@ -23,6 +48,7 @@ class User(MODEL_BASE):
     )
 
     @classmethod
+    @return_static_user
     def load_or_create(cls, username, password):
         user_obj = cls.by_name(username)
         if user_obj:
@@ -42,13 +68,14 @@ class User(MODEL_BASE):
         except Exception as e:
             log.error(str(e))
             Database.rollback()
-            raise DatabaseError('can not create user {username}'.format(usernmae=usernmae))
+            raise DatabaseError('can not create user {username}'.format(username=username))
 
     @classmethod
     def by_name(cls, username):
         return Database.get_one_by(User, User.username == username)
 
     @classmethod
+    @return_static_user
     def by_id(cls, user_id):
         return Database.get_one_by(User, User.id == user_id)
 
