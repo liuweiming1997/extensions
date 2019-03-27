@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from config import config
+from common.database.orm import Database
 from common.lib.errors.expection_base import ChromeServerExpectionBase
 from common.lib.errors.error_handler import chrome_server_error_handler
 from endpoint.meituan.meishi import meishi_api
@@ -21,6 +22,7 @@ def setup_blueprint():
     app.register_blueprint(medium_programming_api)
 
 def setup():
+    Database.init()
     CORS(app, supports_credentials=True)
     app.config['SECRET_KEY'] = config.SECRET_KEY
     app.config['JSON_AS_ASCII'] = config.JSON_AS_ASCII
