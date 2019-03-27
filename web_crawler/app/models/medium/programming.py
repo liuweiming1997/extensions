@@ -4,6 +4,7 @@
 from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
+from .decorator_tool import return_static_programming
 
 from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text, JSON
 from sqlalchemy.sql import func
@@ -23,6 +24,7 @@ class Programming(MODEL_BASE):
     )
 
     @classmethod
+    @return_static_programming
     def load_or_create(cls, hash_id, title, url):
         programming_obj = cls.by_hash_id(hash_id)
         if programming_obj:
@@ -48,7 +50,7 @@ class Programming(MODEL_BASE):
         return Database.get_one_by(Programming, Programming.hash_id == hash_id)
 
     @classmethod
-    def del_by_id(cls, hash_id):
+    def del_by_hash_id(cls, hash_id):
         try:
             Database.delete_one_by(Programming, Programming.hash_id == hash_id)
             Database.commit()

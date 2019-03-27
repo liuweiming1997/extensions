@@ -4,6 +4,7 @@
 from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
+from .decorator_tool import return_static_dianying
 
 from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text, JSON
 from sqlalchemy.sql import func
@@ -28,6 +29,7 @@ class Dianying(MODEL_BASE):
     )
 
     @classmethod
+    @return_static_dianying
     def load_or_create(cls, file_id, url, title, region, score, img, buy_ticket, onshow_time=None):
         dianying_obj = cls.by_id(file_id)
         if dianying_obj:
