@@ -1,7 +1,7 @@
 import messageBox from '../messagebox/messagebox';
 import log from '../lib/log';
 
-const API_HOST = 'http://95.163.202.160:8887';
+const API_HOST = 'http://119.23.231.141:8888';
 
 const OPT = Object.freeze({
   method: 'GET',

@@ -104,17 +104,19 @@ class RenderToCard extends React.Component {
 
           <div style={{"display": this.state.open}}>
             <p style={{"color": "#029bf4"}}> buying list </p>
-            {this.props.dealList.map((oneItem, idx) => (
-              <div>
-                <ListItem button>
-                  <ListItemText 
-                    className={classes.price_text}
-                    primary={oneItem.title} 
-                    secondary={`price: ${oneItem.price}, soldCounts: ${oneItem.soldCounts}`} 
-                  />
-                </ListItem>
-                <Divider />
-              </div>
+            {
+              this.props.dealList &&
+              this.props.dealList.map((oneItem, idx) => (
+                <div>
+                  <ListItem button>
+                    <ListItemText 
+                      className={classes.price_text}
+                      primary={oneItem.title} 
+                      secondary={`price: ${oneItem.price}, soldCounts: ${oneItem.soldCounts}`} 
+                    />
+                  </ListItem>
+                  <Divider />
+                </div>
             ))}
           </div>
         </List>
