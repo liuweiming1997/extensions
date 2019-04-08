@@ -108,12 +108,12 @@ class Dianying(MODEL_BASE):
     @classmethod
     @return_static_dianying
     def get_onshow(cls):
-        return Database.get_many_by(Dianying, Dianying.onshow_time == None, order_by='-score')
+        return Database.get_many_by(Dianying, Dianying.onshow_time == None, order_by=['-id', '-score'])
 
     @classmethod
     @return_static_dianying
     def get_upcoming(cls):
-        return Database.get_many_by(Dianying, Dianying.onshow_time != None, order_by=['onshow_time', '-score'])
+        return Database.get_many_by(Dianying, Dianying.onshow_time != None, order_by=['-id', 'onshow_time', '-score'])
 
     def to_json(self):
         return {
