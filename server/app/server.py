@@ -14,12 +14,18 @@ app = Flask(__name__)
 
 def setup_error_handler():
     app.register_error_handler(ChromeServerExpectionBase, chrome_server_error_handler)
-
+ 
 def setup_blueprint():
     app.register_blueprint(user_api)
     app.register_blueprint(dianying_api)
     app.register_blueprint(meishi_api)
     app.register_blueprint(medium_programming_api)
+
+def setup_hook(app):
+    def database_cleanup(response):
+        Database.remove_session()
+        return response
+    app.after_request_funcs.setdefault(None, []).append(database_cleanup)
 
 def setup():
     Database.init()
@@ -30,5 +36,6 @@ def setup():
     app.config["SESSION_COOKIE_HTTPONLY"] = config.SESSION_COOKIE_HTTPONLY
     setup_error_handler()
     setup_blueprint()
+    setup_hook(app)
 
 setup()

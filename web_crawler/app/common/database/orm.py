@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 from common.config.config_base import Config_Base
+from common.lib.logger import log
 
 class Database:
 
@@ -24,7 +25,7 @@ class Database:
                 host=Config_Base().DB_HOST,
                 database=Config_Base().MYSQL_DATABASE
             ),
-            echo=False, 
+            echo=True, 
             pool_size=2, 
             max_overflow=0,
             pool_recycle=3600,
@@ -44,9 +45,7 @@ class Database:
 
     @classmethod
     def get_one_by(cls, model_type, *filters):
-        result = cls.get_session().query(model_type).filter(*filters).first()
-        cls.commit()
-        return result
+        return cls.get_session().query(model_type).filter(*filters).first()
 
     @classmethod
     def get_many_by(cls, model_type, *filters, order_by=None, offset=None, limit=None):
@@ -64,7 +63,6 @@ class Database:
         if limit:
             query = query.limit(limit)
         result = query.all()
-        cls.commit()
         return result
 
     @classmethod
@@ -90,3 +88,12 @@ class Database:
     @classmethod
     def rollback(cls):
         cls.get_session().rollback()
+
+    @classmethod
+    def remove_session(cls):
+        try:
+            cls.get_session().close()
+        except Exception as e:
+            log.error(str(e))
+        finally:
+            cls.get_instance()._session_factory.remove()
