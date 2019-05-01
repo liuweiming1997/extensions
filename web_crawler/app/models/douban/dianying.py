@@ -31,26 +31,12 @@ class Dianying(MODEL_BASE):
     )
 
     @classmethod
-    def load_or_create(cls, file_id, url, title, region, score, img, buy_ticket, onshow_time=None):
-        dianying_obj = {
-            'fileId': file_id,
-            'img': img,
-            'title': title,
-            'score': score,
-            'region': region,
-            'url': url,
-            'buyTicket': buy_ticket,
-            'onShowTime': onshow_time,
-        }
+    def load_or_create(cls, dianying_list, is_onshow):
         try:
-            if buy_ticket:
-                onshow_list = DianYingCache.get_onshow_dianying_list()
-                onshow_list.append(dianying_obj)
-                DianYingCache.set_onshow_dianying(onshow_list)
+            if is_onshow:
+                DianYingCache.set_onshow_dianying(dianying_list)
             else:
-                upcoming_list = DianYingCache.get_upcoming_dianying_list()
-                upcoming_list.append(dianying_obj)
-                DianYingCache.set_upcoming_dianying(upcoming_list)
+                DianYingCache.set_upcoming_dianying(dianying_list)
         except Exception as e:
             log.error(str(e))
             raise
