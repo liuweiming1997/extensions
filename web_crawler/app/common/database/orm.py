@@ -25,7 +25,7 @@ class Database:
                 host=Config_Base().DB_HOST,
                 database=Config_Base().MYSQL_DATABASE
             ),
-            echo=True, 
+            echo=False, 
             pool_size=2, 
             max_overflow=0,
             pool_recycle=3600,
