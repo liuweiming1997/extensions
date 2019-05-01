@@ -43,6 +43,7 @@ class Web_Crawler_Config(Config_Base):
     def __init__(self):
         super().__init__()
 
+    
     LOGGER = LoggerConfig()
 
 config = Web_Crawler_Config()

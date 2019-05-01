@@ -6,6 +6,7 @@ import functools
 from common.lib.logger import log
 from common.database.orm import Database
 from common.database.model_base import MODEL_BASE
+from models.cache.DianYingCache import DianYingCache
 
 from sqlalchemy import Column, Float, Integer, String, TIMESTAMP, Text, JSON
 from sqlalchemy.sql import func
@@ -31,29 +32,28 @@ class Dianying(MODEL_BASE):
 
     @classmethod
     def load_or_create(cls, file_id, url, title, region, score, img, buy_ticket, onshow_time=None):
-        dianying_obj = cls.by_id(file_id)
-        if dianying_obj:
-            return dianying_obj
-        dianying_obj = cls(
-            file_id=file_id,
-            url=url,
-            title=title,
-            region=region,
-            score=score,
-            img=img,
-            buy_ticket=buy_ticket if buy_ticket else None,
-            onshow_time=onshow_time,
-        )
+        dianying_obj = {
+            'fileId': file_id,
+            'img': img,
+            'title': title,
+            'score': score,
+            'region': region,
+            'url': url,
+            'buyTicket': buy_ticket,
+            'onShowTime': onshow_time,
+        }
         try:
-            Database.add(dianying_obj)
-            Database.commit()
-            return dianying_obj
-        #TODO(weiming liu) cache sqlalchemy for not cache base exception
+            if buy_ticket:
+                onshow_list = DianYingCache.get_onshow_dianying_list()
+                onshow_list.append(dianying_obj)
+                DianYingCache.set_onshow_dianying(onshow_list)
+            else:
+                upcoming_list = DianYingCache.get_upcoming_dianying_list()
+                upcoming_list.append(dianying_obj)
+                DianYingCache.set_upcoming_dianying(upcoming_list)
         except Exception as e:
             log.error(str(e))
-            Database.rollback()
-            # TODO(weiming liu) raise error for not return None
-            return None
+            raise
 
     @classmethod
     def by_id(cls, file_id):
@@ -76,11 +76,13 @@ class Dianying(MODEL_BASE):
 
     @classmethod
     def get_onshow(cls):
-        return Database.get_many_by(Dianying, Dianying.onshow_time == None, order_by=['-id', '-score'])
+        return DianYingCache.get_onshow_dianying_list()
+        # return Database.get_many_by(Dianying, Dianying.onshow_time == None, order_by=['-id', '-score'])
 
     @classmethod
     def get_upcoming(cls):
-        return Database.get_many_by(Dianying, Dianying.onshow_time != None, order_by=['-id', 'onshow_time', '-score'])
+        return DianYingCache.get_upcoming_dianying_list()
+        # return Database.get_many_by(Dianying, Dianying.onshow_time != None, order_by=['-id', 'onshow_time', '-score'])
 
     def to_json(self):
         return {
