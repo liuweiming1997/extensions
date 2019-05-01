@@ -29,7 +29,7 @@ class DianYingCache:
     def get_onshow_dianying_list(cls):
         result = []
         try:
-            result = json.loads(RedisClient().get(UPCOMING_KEY))
+            result = json.loads(RedisClient().get(ONSHOW_KEY))
         except TypeError as e:
             log.error(e)
         return result        
