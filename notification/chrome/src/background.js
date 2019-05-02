@@ -1,6 +1,8 @@
 import storageService from './common/chrome_api/storage';
 import singleton from './common/singleton';
 
+import fetchDianYing from './fetchForNotificatoin/douban/dianying';
+
 class BackgroundService {
   constructor() {
   }
@@ -12,7 +14,9 @@ class BackgroundService {
     singleton.init('BackgroundService');
 
     // register any service
-
+    fetchDianYing.init();
+    // register any service
+  
     window.onbeforeunload=function () {
       singleton.clear_init();
       return false;
