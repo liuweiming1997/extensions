@@ -1,8 +1,8 @@
 import storageService from './common/chrome_api/storage';
+import singleton from './common/singleton';
 
 class BackgroundService {
   constructor() {
-    this.isInit = false;
   }
 
   popNotice = (title, message, callback=null) => {
@@ -23,21 +23,28 @@ class BackgroundService {
   };
 
   run = () => {
-    if (this.isInit) {
+    if (singleton.isInit('BackgroundService')) {
       return;
     }
-    this.isInit = true;
+    singleton.init('BackgroundService');
+
     this.popNotice('a', 'b');
-    storageService.set({
-      username: 'weimingliu',
-      password: 'hello_world',
-    });
-    storageService.get({
-      'username': {},
-      'password': {},
-    }, (result) => {
-      alert(JSON.stringify(result));
-    });
+
+    let val = 1;
+
+    setInterval(() => {
+      this.popNotice('a', val);
+      val += 1;
+    }, 7000);
+
+    window.onbeforeunload=function () {
+      singleton.clear_init();
+      return false;
+    }
+    window.onunload=function () {
+      singleton.clear_init();
+      return false;
+    }
   }
 };
 
