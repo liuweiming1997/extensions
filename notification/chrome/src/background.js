@@ -1,5 +1,8 @@
+import storageService from './common/chrome_api/storage';
+
 class BackgroundService {
   constructor() {
+    this.isInit = false;
   }
 
   popNotice = (title, message, callback=null) => {
@@ -20,12 +23,21 @@ class BackgroundService {
   };
 
   run = () => {
+    if (this.isInit) {
+      return;
+    }
+    this.isInit = true;
     this.popNotice('a', 'b');
-    let a = 1;
-    setInterval(() => {
-      this.popNotice('a', a);
-      a += 1;
-    }, 4000);
+    storageService.set({
+      username: 'weimingliu',
+      password: 'hello_world',
+    });
+    storageService.get({
+      'username': {},
+      'password': {},
+    }, (result) => {
+      alert(JSON.stringify(result));
+    });
   }
 };
 
