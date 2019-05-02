@@ -8,10 +8,6 @@ import account from './common/account';
 import history from './common/history';
 import IndexPage from './components/indexpage';
 
-import { chromeNotification } from './common/chrome_api/notification';
-
-chromeNotification('A new blog', 'Create a complete Machine learning web application using Rea', null);
-
 class AppRouter extends React.Component {
   constructor(props) {
     super(props);
