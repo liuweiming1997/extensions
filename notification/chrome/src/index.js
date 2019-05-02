@@ -7,6 +7,9 @@ import log from './common/lib/log';
 import account from './common/account';
 import history from './common/history';
 import IndexPage from './components/indexpage';
+import backgroundService from './background';
+
+backgroundService.run();
 
 class AppRouter extends React.Component {
   constructor(props) {
