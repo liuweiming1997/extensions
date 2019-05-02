@@ -5,37 +5,13 @@ class BackgroundService {
   constructor() {
   }
 
-  popNotice = (title, message, callback=null) => {
-    const notification = new Notification(title, {
-      body: message,
-      icon: 'https://graph.facebook.com/100000100720480/picture?type=large',
-    });
-  
-    notification.onclick = function() {
-      if (callback) {
-        callback();
-      }
-    };
-
-    setTimeout(() => {
-      notification.close();
-    }, 3000);
-  };
-
   run = () => {
     if (singleton.isInit('BackgroundService')) {
-      return;
+      return false;
     }
     singleton.init('BackgroundService');
 
-    this.popNotice('a', 'b');
-
-    let val = 1;
-
-    setInterval(() => {
-      this.popNotice('a', val);
-      val += 1;
-    }, 7000);
+    // register any service
 
     window.onbeforeunload=function () {
       singleton.clear_init();
@@ -45,6 +21,7 @@ class BackgroundService {
       singleton.clear_init();
       return false;
     }
+    return true;
   }
 };
 
