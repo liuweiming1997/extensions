@@ -1,6 +1,6 @@
 import RequestBase from '../base';
 
-class Meishi extends RequestBase {
+class DianYing extends RequestBase {
   constructor() {
     super();
   }
@@ -12,6 +12,6 @@ class Meishi extends RequestBase {
   }
 };
 
-const meishi  = new Meishi();
+const dianying  = new DianYing();
 
-export default meishi;
+export default dianying;
