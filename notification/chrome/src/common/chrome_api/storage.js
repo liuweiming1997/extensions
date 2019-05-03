@@ -13,7 +13,7 @@ class StorageService {
 
   set = (object) => {
     chrome.storage.sync.set(object, () => {
-      console.log('save sync success');
+      console.log(`save sync success ${JSON.stringify(object)}`);
     });
   }
 }
