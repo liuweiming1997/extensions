@@ -17,26 +17,20 @@ class FetchDianYing {
   fetchOnShowMovie = async () => {
     const result_from_server = await dianyingApi.getOnshowMovie();
     storageService.get({
-      [ON_SHOW_DIANYING]: [],
+      [ON_SHOW_DIANYING]: {},
     }, (result) => {
       const result_from_storage = result[[ON_SHOW_DIANYING]];
-      const need_to_storage = [];
+      const need_to_storage = {};
       for (const idx in result_from_server) {
-        let found = false;
         const temp = result_from_server[idx];
-        need_to_storage.push({title: temp.title});
+        need_to_storage[temp.title] = true;
 
-        for (const idx_storage in result_from_storage) {
-          if (temp.title === result_from_storage[idx_storage].title) {
-            found = true;
-            break;
-          }
+        if (result_from_storage[temp.title]) {
+          continue;
         }
-        if (!found) {
-          popNotice(temp.title, `${temp.region}  ---> ${temp.score}`, temp.img, () => {
+        popNotice(temp.title, `${temp.region}  ---> ${temp.score}`, temp.img, () => {
             window.open(temp.url);
-          });
-        }
+        });
       }
 
       // after get

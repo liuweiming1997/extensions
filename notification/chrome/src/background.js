@@ -15,7 +15,7 @@ class BackgroundService {
     singleton.init('BackgroundService');
 
     // register any service
-    // fetchDianYing.init();
+    fetchDianYing.init();
     fetchProgramming.init();
     // register any service
   
