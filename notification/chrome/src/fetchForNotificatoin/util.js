@@ -20,5 +20,5 @@ export const popNotice = (title, message, icon=null, callback=null) => {
 
   setTimeout(() => {
     notification.close();
-  }, 1000);
+  }, 5000);
 };
