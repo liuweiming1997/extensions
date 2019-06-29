@@ -21,6 +21,11 @@ proxies = {
     'https': 'socks5h://' + proxy
 }
 
+def format_url(url):
+    if url.startswith('http'):
+        return url
+    return 'https://medium.com' + url
+
 class web_crawler_medium_programming(BaseApi):
     def __init__(self):
         super().__init__()
@@ -50,7 +55,7 @@ class web_crawler_medium_programming(BaseApi):
             url = one_page.xpath('article/div/div/a/@href')[0]
             title = one_page.xpath('article/div/div/a/div/h4/text()')[0]
             hash_id = HashUtil.get_hash_by_string(url)
-            Programming.load_or_create(hash_id, title, url)
+            Programming.load_or_create(hash_id, title, format_url(url))
         except Exception as e:
             log.error(str(e))
 

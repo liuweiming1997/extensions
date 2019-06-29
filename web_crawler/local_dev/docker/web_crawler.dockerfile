@@ -26,6 +26,6 @@ WORKDIR ${WORKSPACE}/app
 
 ENTRYPOINT alembic upgrade head && \
            cron && \
-           sslocal -s 95.163.202.160 -p 1080 -k "stupidonevimi" -l 1080 -t 4800 -m aes-256-cfb -d start && \
+           sslocal -s 95.163.202.231 -p 1080 -k "stupidonevimi" -l 1080 -t 4800 -m aes-256-cfb -d start && \
            ":" >> /log/crawler/crontab.log && \
            tail -f /log/crawler/crontab.log

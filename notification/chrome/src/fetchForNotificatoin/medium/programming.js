@@ -20,6 +20,7 @@ class FetchProgramming {
 
   fetch = async () => {
     const result_from_server = await programmingApi.getAllProgrammingBlog();
+    console.log(result_from_server);
     const need_to_storage = {};
 
     storageService.get({

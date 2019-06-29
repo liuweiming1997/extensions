@@ -14,11 +14,11 @@ export const popNotice = (title, message, icon=null, callback=null) => {
   notification.onclick = function() {
     if (callback) {
       callback();
-      notification.close();
     }
+    notification.close();
   };
 
   setTimeout(() => {
     notification.close();
-  }, 50000);
+  }, 1000 * 10); // 1s * 10
 };
