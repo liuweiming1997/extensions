@@ -1,3 +1,5 @@
+import log from './lib/log';
+
 class Singleton {
   constructor() {
     this.init_key = 'init';
@@ -11,6 +13,7 @@ class Singleton {
 
   init(key) {
     localStorage.setItem(key, this.init_key);
+    log.info(`Init key ${key}`);
     this.queue.push(key);
   }
 

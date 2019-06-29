@@ -1,7 +1,7 @@
 const queue = [];
 
 export const popNotice = (title, message, icon=null, callback=null) => {
-  if (queue.length > 3) {
+  if (queue.length > 10) {
     queue[0].close();
     queue.shift();
   }
@@ -20,5 +20,5 @@ export const popNotice = (title, message, icon=null, callback=null) => {
 
   setTimeout(() => {
     notification.close();
-  }, 5000);
+  }, 50000);
 };

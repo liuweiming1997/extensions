@@ -13,6 +13,9 @@ class FetchProgramming {
     setInterval(() => {
       this.fetch();
     }, 60000 * 5);
+    setInterval(() => {
+      popNotice('alive', 'Dianying heart beat', null);
+    }, 60000 * 5); // 60s * 5
   }
 
   fetch = async () => {
