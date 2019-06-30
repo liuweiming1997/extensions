@@ -13,9 +13,6 @@ class FetchDianYing {
     setInterval(() => {
       this.fetchOnShowMovie();
     }, 60000 * 5); // 60s * 5
-    setInterval(() => {
-      popNotice('alive', 'Dianying heart beat', null);
-    }, 60000 * 1); // 60s * 1
   }
   fetchOnShowMovie = async () => {
     const result_from_server = await dianyingApi.getOnshowMovie();

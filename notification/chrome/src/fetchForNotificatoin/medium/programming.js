@@ -14,8 +14,8 @@ class FetchProgramming {
       this.fetch();
     }, 60000 * 5);
     setInterval(() => {
-      popNotice('alive', 'Dianying heart beat', null);
-    }, 60000 * 5); // 60s * 5
+      popNotice('Programming alive', 'you are using web crawler!!!', null);
+    }, 1000 * 60 * 60 * 2); // 1s * 60 * 60 * 2, so it`s two hours
   }
 
   fetch = async () => {
