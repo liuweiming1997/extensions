@@ -12,6 +12,7 @@ class Singleton {
   }
 
   init(key) {
+    return false;
     localStorage.setItem(key, this.init_key);
     log.info(`Init key ${key}`);
     this.queue.push(key);

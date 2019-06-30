@@ -34,9 +34,7 @@ const setupRouter = () => {
 }
 
 const begin = async () => {
-  if (backgroundService.run()) {
-    return;
-  }
+  backgroundService.run()
   try {
     const result = await account.tryLogin();
     setupRouter();
